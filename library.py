@@ -27,3 +27,55 @@ def show_books(books):
     for i, book in enumerate(books, 1):
         print(f"{i}. {book['title']} - {book['author']} ({book['year']})")
     print("-" * 50 + f"\nВсего: {len(books)}\n")
+
+def add_book(books):
+    print("\n--- Добавление книги ---")
+    title = input("Название: ").strip()
+    if not title:
+        print("Ошибка: нужно название\n")
+        return
+    author = input("Автор: ").strip()
+    if not title:
+        print("Ошибка: нужен автор\n")
+        return
+    year = input("Год: ").strip()
+    if not title:
+        print("Ошибка: нужен год\n")
+        return
+
+    books.append({"title": title, "author": author, "year": year})
+    save_books(books)
+    print(f"Книга '{title}' добавлена!\n")
+
+
+def edit_book(books):
+    if not books:
+        print("\nНет книг для редактирования\n")
+        return
+
+    show_books(books)
+    try:
+        num = int(input("Номер книги для редактирования: ")) - 1
+        if num < 0 or num >= len(books):
+            print("Неверный номер\n")
+            return
+
+        book = books[num]
+        print(f"\nРедактируем: {book['title']}")
+
+        title = input(f"Название ({book['title']}): ").strip()
+        if title:
+            book['title'] = title
+
+        author = input(f"Автор ({book['author']}): ").strip()
+        if author:
+            book['author'] = author
+
+        year = input(f"Год ({book['year']}): ").strip()
+        if year:
+            book['year'] = year
+
+        save_books(books)
+        print("Книга обновлена\n")
+    except ValueError:
+        print("Ошибка! Введите число\n")
