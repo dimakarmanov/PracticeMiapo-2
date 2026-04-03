@@ -1,4 +1,3 @@
-jfksdfjdskf
 import os
 
 FILE_NAME = "books.txt"
