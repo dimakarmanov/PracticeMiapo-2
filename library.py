@@ -79,3 +79,27 @@ def edit_book(books):
         print("Книга обновлена\n")
     except ValueError:
         print("Ошибка! Введите число\n")
+
+def delete_book(books):
+    if not books:
+        print("\nНет книг для удаления\n")
+        return
+
+    show_books(books)
+    try:
+        num = int(input("Номер книги для удаления: ")) - 1
+        if num < 0 or num >= len(books):
+            print("Неверный номер\n")
+            return
+
+        book = books[num]
+        answer = input(f"Удалить '{book['title']}'? (y/n): ").lower()
+        if answer == "y":
+            books.pop(num)
+            save_books(books)
+            print("Книга удалена\n")
+        else:
+            print("Отменено\n")
+    except ValueError:
+        print("Ошибка! Введите число\n")
+
