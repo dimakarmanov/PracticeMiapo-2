@@ -103,3 +103,57 @@ def delete_book(books):
     except ValueError:
         print("Ошибка! Введите число\n")
 
+def search_book(books):
+    if not books:
+        print("\nНет книг для поиска\n")
+        return
+
+    word = input("\nЧто ищем? ").strip().lower()
+    if not word:
+        print("Введите слово\n")
+        return
+
+    results = []
+    for book in books:
+        if word in book["title"].lower() or word in book["author"].lower():
+            results.append(f"{book['title']} - {book['author']} ({book['year']})")
+
+    print("\n" + "-" * 40)
+    if results:
+        print(f"Найдено: {len(results)}")
+        for r in results:
+            print(f"{r}")
+    else:
+        print("Ничего не найдено")
+    print("-" * 40 + "\n")
+
+def main():
+    books = load_books()
+
+    while True:
+        print("\n" + "=" * 35)
+        print("1. Добавить книгу")
+        print("2. Редактировать книгу")
+        print("3. Удалить книгу")
+        print("4. Найти книгу")
+        print("5. Выйти")
+        print("=" * 35)
+
+        choice = input("Выберите (1-5): ").strip()
+
+        if choice == '1':
+            add_book(books)
+        elif choice == '2':
+            edit_book(books)
+        elif choice == '3':
+            delete_book(books)
+        elif choice == '4':
+            search_book(books)
+        elif choice == '5':
+            print("\nДо свидания!\n")
+            break
+        else:
+            print("Неверный выбор\n")
+
+if __name__ == "__main__":
+    main()
